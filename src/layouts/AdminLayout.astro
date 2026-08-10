@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+import { unreadOrderCount } from '../lib/store';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const unread = await unreadOrderCount();
+const path = Astro.url.pathname;
+
+const navLinks = [
+	{ href: '/', label: 'แดชบอร์ด' },
+	{ href: '/orders', label: 'ออเดอร์', badge: unread },
+	{ href: '/products', label: 'สินค้า' },
+	{ href: '/content/home', label: 'เนื้อหาหน้าเว็บ' },
+];
+
+function isActive(href: string) {
+	if (href === '/') return path === '/';
+	return path === href || path.startsWith(`${href}/`);
+}
+---
+
+<!doctype html>
+<html lang="th">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title} — หลังบ้าน Studio Kath</title>
+	</head>
+	<body>
+		<div class="shell">
+			<aside class="sidebar">
+				<p class="sidebar__brand">Studio Kath<br /><span>หลังบ้าน</span></p>
+				<nav class="sidebar__nav">
+					{
+						navLinks.map((link) => (
+							<a
+								href={link.href}
+								class:list={['sidebar__link', { 'is-active': isActive(link.href) }]}
+							>
+								{link.label}
+								{link.badge ? <span class="badge">{link.badge}</span> : null}
+							</a>
+						))
+					}
+				</nav>
+				<form method="POST" action="/api/logout" class="sidebar__logout">
+					<button type="submit" class="btn btn-ghost">ออกจากระบบ</button>
+				</form>
+			</aside>
+			<main class="content">
+				<slot />
+			</main>
+		</div>
+	</body>
+</html>
+
+<style>
+	.shell {
+		display: flex;
+		min-height: 100vh;
+	}
+
+	.sidebar {
+		width: 15rem;
+		flex-shrink: 0;
+		background: var(--color-ink);
+		color: var(--color-paper);
+		display: flex;
+		flex-direction: column;
+		padding: var(--space-lg) var(--space-md);
+	}
+
+	.sidebar__brand {
+		margin: 0 0 var(--space-xl);
+		font-size: 0.9375rem;
+		line-height: 1.3;
+	}
+
+	.sidebar__brand span {
+		opacity: 0.55;
+	}
+
+	.sidebar__nav {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		flex: 1;
+	}
+
+	.sidebar__link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2xs);
+		padding: 0.6em 0.75em;
+		border-radius: var(--radius);
+		color: color-mix(in oklch, var(--color-paper) 78%, transparent);
+		text-decoration: none;
+		font-size: 0.9375rem;
+	}
+
+	.sidebar__link:hover {
+		background: color-mix(in oklch, var(--color-paper) 8%, transparent);
+	}
+
+	.sidebar__link.is-active {
+		background: color-mix(in oklch, var(--color-paper) 14%, transparent);
+		color: var(--color-paper);
+	}
+
+	.sidebar__logout {
+		margin: 0;
+	}
+
+	.sidebar__logout .btn {
+		width: 100%;
+		justify-content: center;
+		border-color: color-mix(in oklch, var(--color-paper) 30%, transparent);
+		color: var(--color-paper);
+	}
+
+	.content {
+		flex: 1;
+		padding: var(--space-xl);
+		max-width: 64rem;
+	}
+</style>

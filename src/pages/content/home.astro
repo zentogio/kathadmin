@@ -1,0 +1,129 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getSiteContent } from '../../lib/store';
+
+const content = await getSiteContent();
+const saved = Astro.url.searchParams.get('saved');
+---
+
+<AdminLayout title="เนื้อหาหน้าเว็บ — หน้าหลัก">
+	<h1>เนื้อหาหน้าเว็บ — หน้าหลัก</h1>
+	<p class="lead">
+		แก้ข้อความและรูปของหน้าหลัก — ยังเป็นจุดเริ่มต้น (เฉพาะส่วน Hero ก่อน) ส่วนอื่นของเว็บทำเพิ่มได้ทีหลัง
+	</p>
+
+	{saved && <p class="notice">บันทึกเรียบร้อยแล้ว</p>}
+
+	<form method="POST" action="/api/content/home" enctype="multipart/form-data" class="content-form">
+		<div class="field">
+			<label for="heroHeadline">หัวข้อหลัก (Hero)</label>
+			<textarea id="heroHeadline" name="heroHeadline" rows="2">{content.home.heroHeadline}</textarea>
+		</div>
+
+		<div class="field">
+			<label for="heroSubtext">ข้อความรอง (Hero)</label>
+			<textarea id="heroSubtext" name="heroSubtext" rows="3">{content.home.heroSubtext}</textarea>
+		</div>
+
+		<div class="field">
+			<label>รูปพื้นหลัง Hero</label>
+			{
+				content.home.heroImages.length > 0 && (
+					<div class="image-grid">
+						{content.home.heroImages.map((src, i) => (
+							<div class="image-item">
+								<img src={src} alt="" />
+								<label class="checkbox">
+									<input type="checkbox" name="removeImages" value={src} />
+									ลบรูปนี้
+								</label>
+							</div>
+						))}
+					</div>
+				)
+			}
+			<label for="newImages" class="hint">เพิ่มรูปใหม่ (เลือกได้หลายรูป)</label>
+			<input type="file" id="newImages" name="newImages" accept="image/*" multiple />
+		</div>
+
+		<button type="submit" class="btn">บันทึก</button>
+	</form>
+</AdminLayout>
+
+<style>
+	h1 {
+		margin: 0 0 var(--space-2xs);
+	}
+
+	.lead {
+		margin: 0 0 var(--space-lg);
+		color: var(--color-graphite);
+		font-size: 0.875rem;
+	}
+
+	.notice {
+		margin: 0 0 var(--space-md);
+		padding: 0.6em 0.9em;
+		background: color-mix(in oklch, var(--color-accent) 10%, transparent);
+		color: var(--color-accent);
+		border-radius: var(--radius);
+		font-size: 0.875rem;
+	}
+
+	.content-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+		max-width: 32rem;
+	}
+
+	.content-form textarea {
+		border: 1px solid var(--color-border-strong);
+		border-radius: var(--radius);
+		padding: 0.6em 0.75em;
+		background: var(--color-paper);
+		font-family: inherit;
+		resize: vertical;
+	}
+
+	.image-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+		gap: var(--space-sm);
+		margin: var(--space-2xs) 0 var(--space-md);
+	}
+
+	.image-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3em;
+	}
+
+	.image-item img {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+		border-radius: var(--radius);
+		background: var(--color-paper-sunk);
+	}
+
+	.checkbox {
+		display: flex;
+		align-items: center;
+		gap: 0.3em;
+		font-size: 0.75rem;
+		color: var(--color-warn);
+	}
+
+	.hint {
+		display: block;
+		margin-bottom: 0.3em;
+		font-size: 0.8125rem;
+		font-weight: 500;
+		color: var(--color-graphite);
+	}
+
+	input[type='file'] {
+		font-size: 0.8125rem;
+	}
+</style>

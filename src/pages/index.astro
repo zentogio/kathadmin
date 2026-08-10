@@ -1,0 +1,90 @@
+---
+import AdminLayout from '../layouts/AdminLayout.astro';
+import { getOrders, getProducts, unreadOrderCount } from '../lib/store';
+
+const orders = await getOrders();
+const products = await getProducts();
+const unread = await unreadOrderCount();
+const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+---
+
+<AdminLayout title="แดชบอร์ด">
+	<h1>แดชบอร์ด</h1>
+	<p class="lead">ข้อมูลเบื้องต้น — ตอนนี้อ่าน/เขียนจากไฟล์ในเครื่อง ยังไม่เชื่อมฐานข้อมูลกลาง</p>
+
+	<div class="stats">
+		<div class="stat">
+			<p class="stat__value">{unread}</p>
+			<p class="stat__label">ออเดอร์ใหม่</p>
+		</div>
+		<div class="stat">
+			<p class="stat__value">{orders.length}</p>
+			<p class="stat__label">ออเดอร์ทั้งหมด</p>
+		</div>
+		<div class="stat">
+			<p class="stat__value">{products.length}</p>
+			<p class="stat__label">สินค้าทั้งหมด</p>
+		</div>
+		<div class="stat">
+			<p class="stat__value">฿{totalRevenue.toLocaleString('en-US')}</p>
+			<p class="stat__label">ยอดออเดอร์ (ยังไม่ตรวจสอบ)</p>
+		</div>
+	</div>
+
+	{
+		unread > 0 && (
+			<a href="/orders" class="notice">
+				มีออเดอร์ใหม่ {unread} รายการ รอตรวจสอบ →
+			</a>
+		)
+	}
+</AdminLayout>
+
+<style>
+	h1 {
+		margin: 0 0 var(--space-2xs);
+	}
+
+	.lead {
+		margin: 0 0 var(--space-xl);
+		color: var(--color-graphite);
+		font-size: 0.875rem;
+	}
+
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+		gap: var(--space-md);
+		margin-bottom: var(--space-xl);
+	}
+
+	.stat {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		padding: var(--space-md);
+	}
+
+	.stat__value {
+		margin: 0;
+		font-size: 1.75rem;
+		font-weight: 600;
+	}
+
+	.stat__label {
+		margin: 0.2em 0 0;
+		font-size: 0.8125rem;
+		color: var(--color-graphite);
+	}
+
+	.notice {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		background: color-mix(in oklch, var(--color-accent) 10%, transparent);
+		color: var(--color-accent);
+		border-radius: var(--radius);
+		padding: 0.8em 1.1em;
+		text-decoration: none;
+		font-weight: 500;
+	}
+</style>

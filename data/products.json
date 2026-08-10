@@ -1,0 +1,164 @@
+[
+  {
+    "id": "trousers-sand",
+    "name": "Pleated Wide-Leg Trousers, Sand",
+    "price": 1290,
+    "stock": 5,
+    "image": "/uploads/products/trousers-sand.webp",
+    "details": "High-waisted with double front pleats and a wide, straight drop through the leg. Pairs easily with a cropped top or tucked shirt.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-papaya",
+    "name": "Pleated Wide-Leg Trousers, Papaya",
+    "price": 1290,
+    "stock": 5,
+    "image": "/uploads/products/trousers-papaya.webp",
+    "details": "High-waisted with double front pleats and a wide, straight drop through the leg. A brighter colorway for the same silhouette.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-indigo-gingham",
+    "name": "Gingham Wide-Leg Trousers, Indigo",
+    "price": 1390,
+    "stock": 5,
+    "image": "/uploads/products/trousers-indigo-gingham.webp",
+    "details": "A small indigo gingham check, cut in the same wide-leg silhouette with side pockets.",
+    "soldOut": false
+  },
+  {
+    "id": "crop-top-yellow-gingham",
+    "name": "Tie-Back Crop Top, Yellow Gingham",
+    "price": 690,
+    "stock": 5,
+    "image": "/uploads/products/crop-top-yellow-gingham.webp",
+    "details": "Sleeveless, tied at the back, cropped at the waist. Shown here with our Ivory trousers.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-mint",
+    "name": "Pleated Wide-Leg Trousers, Mint",
+    "price": 1290,
+    "stock": 5,
+    "image": "/uploads/products/trousers-mint.webp",
+    "details": "High-waisted with double front pleats and a wide, straight drop through the leg, in a cool pastel mint.",
+    "soldOut": false
+  },
+  {
+    "id": "collar-set-sky",
+    "name": "Collared Puff-Sleeve Set, Sky Blue",
+    "price": 2290,
+    "stock": 5,
+    "image": "/uploads/products/collar-set-sky.webp",
+    "details": "A satin blouse with an oversized collar and balloon sleeves, sold as a set with matching pleated shorts.",
+    "soldOut": false
+  },
+  {
+    "id": "crop-top-lime",
+    "name": "Cropped Satin Top, Lime",
+    "price": 650,
+    "stock": 5,
+    "image": "/uploads/products/crop-top-lime.webp",
+    "details": "Boxy and cropped with a dropped shoulder, in a bright lime satin.",
+    "soldOut": false
+  },
+  {
+    "id": "halter-top-ivory",
+    "name": "Halter Top, Ivory Linen",
+    "price": 650,
+    "stock": 5,
+    "image": "/uploads/products/halter-top-ivory.webp",
+    "details": "A high, close neckline with an open back, cut in a soft linen blend. Shown with our Mint shorts.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-floral-meadow",
+    "name": "Floral Pleated Trousers, Meadow",
+    "price": 1490,
+    "stock": 5,
+    "image": "/uploads/products/trousers-floral-meadow.webp",
+    "details": "The wide-leg trouser silhouette in an all-over meadow floral print, on a natural linen ground.",
+    "soldOut": false
+  },
+  {
+    "id": "blouse-green-mandarin",
+    "name": "Mandarin-Collar Blouse, Green",
+    "price": 890,
+    "stock": 5,
+    "image": "/uploads/products/blouse-green-mandarin.webp",
+    "details": "A stand mandarin collar with a keyhole button closure and a full, gathered sleeve.",
+    "soldOut": false
+  },
+  {
+    "id": "blouse-papaya-puff",
+    "name": "Puff-Sleeve Blouse, Papaya",
+    "price": 950,
+    "stock": 5,
+    "image": "/uploads/products/blouse-papaya-puff.webp",
+    "details": "An oversized collar and dramatically puffed sleeve, in a warm papaya satin.",
+    "soldOut": false
+  },
+  {
+    "id": "satin-set-powder-blue",
+    "name": "Satin Shirt Set, Powder Blue",
+    "price": 1890,
+    "stock": 5,
+    "image": "/uploads/products/satin-set-powder-blue.webp",
+    "details": "A relaxed, notch-collar shirt and elastic-waist trouser, cut from the same soft satin.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-taupe-plaid",
+    "name": "Plaid Wide-Leg Trousers, Taupe",
+    "price": 1390,
+    "stock": 5,
+    "image": "/uploads/products/trousers-taupe-plaid.webp",
+    "details": "A muted taupe-and-cream plaid, high-waisted with a tab-button closure and wide drop.",
+    "soldOut": false
+  },
+  {
+    "id": "blouse-lavender-puff",
+    "name": "Puff-Sleeve Blouse, Lavender",
+    "price": 890,
+    "stock": 5,
+    "image": "/uploads/products/blouse-lavender-puff.webp",
+    "details": "A soft V-neck with a puffed sleeve and jeweled button placket, in a pale lavender.",
+    "soldOut": false
+  },
+  {
+    "id": "vest-set-dusty-blue",
+    "name": "Linen Vest Set, Dusty Blue",
+    "price": 1990,
+    "stock": 5,
+    "image": "/uploads/products/vest-set-dusty-blue.webp",
+    "details": "A tie-front linen vest and matching wide-leg trouser, meant to be layered over the paisley blouse.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-sage",
+    "name": "Pleated Wide-Leg Trousers, Sage",
+    "price": 1290,
+    "stock": 5,
+    "image": "/uploads/products/trousers-sage.webp",
+    "details": "High-waisted with double front pleats and a wide, straight drop through the leg, in a pale dusty sage.",
+    "soldOut": false
+  },
+  {
+    "id": "trousers-azure",
+    "name": "Pleated Wide-Leg Trousers, Azure",
+    "price": 1290,
+    "stock": 5,
+    "image": "/uploads/products/trousers-azure.webp",
+    "details": "High-waisted with double front pleats and a wide, straight drop through the leg, in a saturated azure.",
+    "soldOut": false
+  },
+  {
+    "id": "collar-set-peach",
+    "name": "Collared Shirt Set, Peach",
+    "price": 2190,
+    "stock": 5,
+    "image": "/uploads/products/collar-set-peach.webp",
+    "details": "A relaxed shirt with an oversized collar and balloon sleeve, sold as a set with matching shorts.",
+    "soldOut": false
+  }
+]

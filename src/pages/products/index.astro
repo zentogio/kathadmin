@@ -1,0 +1,120 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getProducts } from '../../lib/store';
+
+const products = await getProducts();
+const deleted = Astro.url.searchParams.get('deleted');
+---
+
+<AdminLayout title="สินค้า">
+	<div class="header">
+		<div>
+			<h1>สินค้า</h1>
+			<p class="lead">จัดการสินค้าทั้งหมดของร้าน</p>
+		</div>
+		<a href="/products/new" class="btn">+ เพิ่มสินค้า</a>
+	</div>
+
+	{deleted && <p class="notice">ลบสินค้าเรียบร้อยแล้ว</p>}
+
+	<table>
+		<thead>
+			<tr>
+				<th />
+				<th>ชื่อสินค้า</th>
+				<th>ราคา</th>
+				<th>สต็อก</th>
+				<th>สถานะ</th>
+				<th />
+			</tr>
+		</thead>
+		<tbody>
+			{
+				products.map((product) => (
+					<tr>
+						<td>
+							<img src={product.image} alt="" class="thumb" />
+						</td>
+						<td>{product.name}</td>
+						<td>฿{product.price.toLocaleString('en-US')}</td>
+						<td>{product.stock}</td>
+						<td>{product.soldOut ? 'สินค้าหมด' : 'มีสินค้า'}</td>
+						<td class="actions">
+							<a href={`/products/${product.id}/edit`} class="btn btn-ghost btn-sm">
+								แก้ไข
+							</a>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</AdminLayout>
+
+<style>
+	.header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--space-md);
+		margin-bottom: var(--space-lg);
+	}
+
+	h1 {
+		margin: 0 0 var(--space-2xs);
+	}
+
+	.lead {
+		margin: 0;
+		color: var(--color-graphite);
+		font-size: 0.875rem;
+	}
+
+	.notice {
+		margin: 0 0 var(--space-md);
+		padding: 0.6em 0.9em;
+		background: color-mix(in oklch, var(--color-accent) 10%, transparent);
+		color: var(--color-accent);
+		border-radius: var(--radius);
+		font-size: 0.875rem;
+	}
+
+	table {
+		font-size: 0.875rem;
+	}
+
+	th {
+		text-align: left;
+		padding: 0.5em 0.75em;
+		border-bottom: 1px solid var(--color-border-strong);
+		color: var(--color-graphite);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	td {
+		padding: 0.6em 0.75em;
+		border-bottom: 1px solid var(--color-border);
+		vertical-align: middle;
+	}
+
+	.thumb {
+		width: 2.75rem;
+		height: 3.4rem;
+		object-fit: cover;
+		border-radius: var(--radius);
+		background: var(--color-paper-sunk);
+		display: block;
+	}
+
+	.actions {
+		text-align: right;
+	}
+
+	.btn-sm {
+		padding: 0.4em 0.7em;
+		font-size: 0.8125rem;
+		border-color: var(--color-border-strong);
+	}
+</style>

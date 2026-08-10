@@ -1,0 +1,15 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ProductForm from '../../components/ProductForm.astro';
+---
+
+<AdminLayout title="เพิ่มสินค้า">
+	<h1>เพิ่มสินค้าใหม่</h1>
+	<ProductForm action="/api/products/create" />
+</AdminLayout>
+
+<style>
+	h1 {
+		margin: 0 0 var(--space-lg);
+	}
+</style>

@@ -1,0 +1,152 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getOrders } from '../../lib/store';
+
+const orders = await getOrders();
+const sorted = [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+const STATUS_LABEL: Record<string, string> = {
+	pending: 'รอดำเนินการ',
+	'awaiting-verification': 'รอตรวจสอบการจ่ายเงิน',
+	paid: 'จ่ายแล้ว',
+	shipped: 'จัดส่งแล้ว',
+	done: 'เสร็จสิ้น',
+};
+---
+
+<AdminLayout title="ออเดอร์">
+	<h1>ออเดอร์</h1>
+	<p class="lead">
+		ตอนนี้เป็นข้อมูลตัวอย่าง — เว็บร้านยังไม่ได้ส่งออเดอร์จริงมาที่นี่
+	</p>
+
+	{
+		sorted.length === 0 ? (
+			<p class="empty">ยังไม่มีออเดอร์</p>
+		) : (
+			<table>
+				<thead>
+					<tr>
+						<th />
+						<th>ออเดอร์</th>
+						<th>ลูกค้า</th>
+						<th>รายการ</th>
+						<th>ยอดรวม</th>
+						<th>สถานะ</th>
+						<th />
+					</tr>
+				</thead>
+				<tbody>
+					{sorted.map((order) => (
+						<tr class:list={{ 'is-unread': !order.read }}>
+							<td>{!order.read && <span class="dot" aria-label="ยังไม่อ่าน" />}</td>
+							<td>
+								<span class="order-id">{order.orderId}</span>
+								<br />
+								<span class="order-date">{new Date(order.createdAt).toLocaleString('th-TH')}</span>
+							</td>
+							<td>
+								{order.contact.name}
+								<br />
+								<span class="order-phone">{order.contact.phone}</span>
+							</td>
+							<td>{order.items.reduce((n, i) => n + i.qty, 0)} ชิ้น</td>
+							<td>฿{order.total.toLocaleString('en-US')}</td>
+							<td>
+								<form method="POST" action={`/api/orders/${order.orderId}/status`}>
+									<select name="status" onchange="this.form.requestSubmit()">
+										{Object.entries(STATUS_LABEL).map(([value, label]) => (
+											<option value={value} selected={value === order.status}>
+												{label}
+											</option>
+										))}
+									</select>
+								</form>
+							</td>
+							<td>
+								{!order.read && (
+									<form method="POST" action={`/api/orders/${order.orderId}/read`}>
+										<button type="submit" class="btn btn-ghost btn-sm">
+											อ่านแล้ว
+										</button>
+									</form>
+								)}
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		)
+	}
+</AdminLayout>
+
+<style>
+	h1 {
+		margin: 0 0 var(--space-2xs);
+	}
+
+	.lead {
+		margin: 0 0 var(--space-xl);
+		color: var(--color-graphite);
+		font-size: 0.875rem;
+	}
+
+	.empty {
+		color: var(--color-graphite);
+	}
+
+	table {
+		font-size: 0.875rem;
+	}
+
+	th {
+		text-align: left;
+		padding: 0.5em 0.75em;
+		border-bottom: 1px solid var(--color-border-strong);
+		color: var(--color-graphite);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	td {
+		padding: 0.75em;
+		border-bottom: 1px solid var(--color-border);
+		vertical-align: top;
+	}
+
+	tr.is-unread {
+		background: color-mix(in oklch, var(--color-accent) 5%, transparent);
+	}
+
+	.dot {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		border-radius: 999px;
+		background: var(--color-accent);
+	}
+
+	.order-id {
+		font-weight: 600;
+	}
+
+	.order-date,
+	.order-phone {
+		color: var(--color-graphite);
+		font-size: 0.8125rem;
+	}
+
+	select {
+		border: 1px solid var(--color-border-strong);
+		border-radius: var(--radius);
+		padding: 0.4em 0.5em;
+		background: var(--color-paper);
+	}
+
+	.btn-sm {
+		padding: 0.4em 0.7em;
+		font-size: 0.8125rem;
+		border-color: var(--color-border-strong);
+	}
+</style>

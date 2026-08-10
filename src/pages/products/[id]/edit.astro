@@ -1,0 +1,45 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import ProductForm from '../../../components/ProductForm.astro';
+import { getProduct } from '../../../lib/store';
+
+const { id } = Astro.params;
+const product = id ? await getProduct(id) : null;
+
+if (!product) {
+	return Astro.redirect('/products');
+}
+---
+
+<AdminLayout title={`แก้ไข — ${product.name}`}>
+	<h1>แก้ไขสินค้า</h1>
+	<ProductForm action={`/api/products/${product.id}/update`} product={product} />
+
+	<form
+		method="POST"
+		action={`/api/products/${product.id}/delete`}
+		class="delete-form"
+		onsubmit="return confirm('ยืนยันลบสินค้านี้? ทำแล้วกู้คืนไม่ได้')"
+	>
+		<button type="submit" class="btn btn-danger">ลบสินค้านี้</button>
+	</form>
+</AdminLayout>
+
+<style>
+	h1 {
+		margin: 0 0 var(--space-lg);
+	}
+
+	.delete-form {
+		max-width: 28rem;
+		margin-top: var(--space-2xl);
+		padding-top: var(--space-lg);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.btn-danger {
+		background: transparent;
+		border-color: var(--color-warn);
+		color: var(--color-warn);
+	}
+</style>

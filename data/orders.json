@@ -1,0 +1,25 @@
+[
+	{
+		"orderId": "SK-DEMO001",
+		"items": [
+			{ "id": "trousers-papaya", "name": "Pleated Wide-Leg Trousers, Papaya", "price": 1290, "qty": 1 },
+			{ "id": "crop-top-lime", "name": "Cropped Satin Top, Lime", "price": 650, "qty": 1 }
+		],
+		"total": 1940,
+		"contact": { "name": "Demo Customer", "address": "123 Example Rd, Bangkok", "phone": "081-234-5678" },
+		"createdAt": "2026-08-01T09:12:00.000Z",
+		"status": "awaiting-verification",
+		"read": false
+	},
+	{
+		"orderId": "SK-DEMO002",
+		"items": [
+			{ "id": "collar-set-sky", "name": "Collared Puff-Sleeve Set, Sky Blue", "price": 2290, "qty": 1 }
+		],
+		"total": 2290,
+		"contact": { "name": "Sample Buyer", "address": "456 Sample St, Chiang Mai", "phone": "089-876-5432" },
+		"createdAt": "2026-07-30T14:40:00.000Z",
+		"status": "paid",
+		"read": true
+	}
+]
