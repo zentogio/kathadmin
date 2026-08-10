@@ -4,6 +4,7 @@ import { getOrders } from '../../lib/store';
 
 const orders = await getOrders();
 const sorted = [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+const unread = orders.filter((o) => !o.read).length;
 
 const STATUS_LABEL: Record<string, string> = {
 	pending: 'รอดำเนินการ',
@@ -14,7 +15,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 ---
 
-<AdminLayout title="ออเดอร์">
+<AdminLayout title="ออเดอร์" unreadCount={unread}>
 	<h1>ออเดอร์</h1>
 	<p class="lead">
 		ตอนนี้เป็นข้อมูลตัวอย่าง — เว็บร้านยังไม่ได้ส่งออเดอร์จริงมาที่นี่

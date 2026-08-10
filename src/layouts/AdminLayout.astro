@@ -4,10 +4,14 @@ import { unreadOrderCount } from '../lib/store';
 
 interface Props {
 	title: string;
+	// Pages that already fetched orders for their own use can pass the
+	// unread count straight through, sparing the sidebar badge a second
+	// Supabase round-trip on every navigation.
+	unreadCount?: number;
 }
 
-const { title } = Astro.props;
-const unread = await unreadOrderCount();
+const { title, unreadCount } = Astro.props;
+const unread = unreadCount ?? (await unreadOrderCount());
 const path = Astro.url.pathname;
 
 const navLinks = [

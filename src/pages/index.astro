@@ -1,16 +1,17 @@
 ---
 import AdminLayout from '../layouts/AdminLayout.astro';
-import { getOrders, getProducts, unreadOrderCount } from '../lib/store';
+import { getOrders, getProducts } from '../lib/store';
 
-const orders = await getOrders();
-const products = await getProducts();
-const unread = await unreadOrderCount();
+// Both queries are independent — run them together instead of one after
+// the other (halves the round-trip time to Supabase for this page).
+const [orders, products] = await Promise.all([getOrders(), getProducts()]);
+const unread = orders.filter((o) => !o.read).length;
 const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
 ---
 
-<AdminLayout title="แดชบอร์ด">
+<AdminLayout title="แดชบอร์ด" unreadCount={unread}>
 	<h1>แดชบอร์ด</h1>
-	<p class="lead">ข้อมูลเบื้องต้น — ตอนนี้อ่าน/เขียนจากไฟล์ในเครื่อง ยังไม่เชื่อมฐานข้อมูลกลาง</p>
+	<p class="lead">ข้อมูลเบื้องต้น — เชื่อมกับฐานข้อมูล Supabase แล้ว</p>
 
 	<div class="stats">
 		<div class="stat">
